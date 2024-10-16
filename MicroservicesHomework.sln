@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroservicesHomework.Orche
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{B012DB1F-C684-4DCD-B5D5-A7167BDF9AEE}"
 	ProjectSection(SolutionItems) = preProject
+		NotificationsImage.png = NotificationsImage.png
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -14,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroservicesHomework.Notif
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9FC0F7CF-8D99-457E-89B3-5CF4998F174D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroservicesHomework.ServiceA", "MicroservicesHomework.ServiceA\MicroservicesHomework.ServiceA.csproj", "{F5FBAC94-3E08-4966-A4C7-00A3074A593B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroservicesHomework.ServiceA", "MicroservicesHomework.ServiceA\MicroservicesHomework.ServiceA.csproj", "{F5FBAC94-3E08-4966-A4C7-00A3074A593B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroservicesHomework.ServiceB", "MicroservicesHomework.ServiceB\MicroservicesHomework.ServiceB.csproj", "{91732EE8-F141-43DE-ADE4-61503CBD00F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroservicesHomework.ServiceB", "MicroservicesHomework.ServiceB\MicroservicesHomework.ServiceB.csproj", "{91732EE8-F141-43DE-ADE4-61503CBD00F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
