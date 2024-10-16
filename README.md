@@ -8,7 +8,7 @@
 1. `MicroservicesHomework.Orchestrator` - оркестратор, при запуске создаёт две очереди (одна для очереди на стулья, вторая для очереди на молоко), и отправляет первые идентификаторы в очередях в соответствующие сервисы.
 1. `MicroservicesHomework.Notifications` - сервис, принимающий сообщения о попытках заказать продукт.
 
-[alt text](https://github.com/IvanHattler/MicroservicesHomework/blob/master/NotificationsImage.png?raw=true)
+![notifications](https://github.com/IvanHattler/MicroservicesHomework/blob/master/NotificationsImage.png?raw=true)
 
 
 
