@@ -1,5 +1,5 @@
-
-using MicroservicesHomework.Orchestrator.Services;
+using MicroservicesHomework.Orchestrator.Contracts;
+using MicroservicesHomework.Orchestrator.Domain;
 
 namespace MicroservicesHomework.Orchestrator
 {
@@ -27,15 +27,32 @@ namespace MicroservicesHomework.Orchestrator
 
             app.UseAuthorization();
 
-            var workflowService = new WorkflowService();
-            app.MapGet("/get-queue", (HttpContext httpContext) =>
+            var queue = new UsersQueue();
+
+            var environmentVariables = Environment.GetEnvironmentVariables();
+            var notificationsUrl = environmentVariables["notifications_url"] as string;
+
+            app.MapGet("/get-queue", () => queue);
+            app.MapPost("/move-to-end", async (MoveToEndDto dto) =>
             {
-                
-            })
-            .WithName("GetWeatherForecast")
-            .WithOpenApi();
+                queue.MoveToEnd(dto.ProductName, dto.ClientId);
+                await SendNotification(dto, notificationsUrl);
+                return queue;
+            });
 
             app.Run();
+        }
+
+        private static async Task SendNotification(MoveToEndDto dto, string notificationsUrl)
+        {
+            using var client = new HttpClient()
+            {
+                BaseAddress = new Uri(notificationsUrl),
+            };
+
+            var response = await client.PostAsync(
+                "/send-attempt-to-order-notification",
+                JsonContent.Create(dto));
         }
     }
 }

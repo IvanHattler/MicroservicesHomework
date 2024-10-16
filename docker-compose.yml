@@ -1,0 +1,26 @@
+version: '3.4'
+
+networks:
+    app-net:
+        external: false
+
+services:
+  microserviceshomework.notifications:
+    image: ${DOCKER_REGISTRY-}microserviceshomeworknotifications
+    container_name: notifications
+    build:
+      context: .
+      dockerfile: MicroservicesHomework.Notifications/Dockerfile 
+    networks:
+      -  app-net
+
+  microserviceshomework.orchestrator:
+    image: ${DOCKER_REGISTRY-}microserviceshomeworkorchestrator
+    container_name: orchestrator
+    depends_on:
+        - microserviceshomework.notifications
+    build:
+      context: .
+      dockerfile: MicroservicesHomework.Orchestrator/Dockerfile    
+    networks:
+      - app-net
