@@ -56,7 +56,7 @@ namespace MicroservicesHomework.Orchestrator
                 return queue;
             });
 
-            await Task.Delay(5000);
+            await Task.Delay(3000);
             await SendNextClient(serviceAUrl, queue[UsersQueue.ProductFromServiceAName].First());
             await SendNextClient(serviceBUrl, queue[UsersQueue.ProductFromServiceBName].First());
 
