@@ -2,12 +2,13 @@
 {
     public class UsersQueue : Dictionary<string, List<long>>
     {
+        public const string ProductFromServiceAName = "Молоко";
+        public const string ProductFromServiceBName = "Стул";
+
         public UsersQueue()
         {
-            Add("Product1", [1, 2, 3, 4, 5]);
-            Add("Product2", [4, 3]);
-            Add("Product3", [5, 2, 3, 1]);
-            Add("Product4", [3, 1, 5]);
+            Add(ProductFromServiceAName, [1, 2, 3, 4, 5]);
+            Add(ProductFromServiceBName, [5, 2, 3, 1]);
         }
 
         public void MoveToEnd(string productName, long clientId)

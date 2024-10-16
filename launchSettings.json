@@ -5,7 +5,9 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "microserviceshomework.notifications": "StartDebugging",
-        "microserviceshomework.orchestrator": "StartDebugging"
+        "microserviceshomework.orchestrator": "StartDebugging",
+        "microserviceshomework.servicea": "StartDebugging",
+        "microserviceshomework.serviceb": "StartDebugging"
       }
     }
   }

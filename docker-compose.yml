@@ -5,22 +5,39 @@ networks:
         external: false
 
 services:
-  microserviceshomework.notifications:
-    image: ${DOCKER_REGISTRY-}microserviceshomeworknotifications
-    container_name: notifications
-    build:
-      context: .
-      dockerfile: MicroservicesHomework.Notifications/Dockerfile 
-    networks:
-      -  app-net
-
   microserviceshomework.orchestrator:
     image: ${DOCKER_REGISTRY-}microserviceshomeworkorchestrator
     container_name: orchestrator
     depends_on:
         - microserviceshomework.notifications
+        - microserviceshomework.servicea
+        - microserviceshomework.serviceb
     build:
       context: .
-      dockerfile: MicroservicesHomework.Orchestrator/Dockerfile    
+      dockerfile: MicroservicesHomework.Orchestrator/Dockerfile
+    networks:
+      - app-net
+  microserviceshomework.notifications:
+    image: ${DOCKER_REGISTRY-}microserviceshomeworknotifications
+    container_name: notifications
+    build:
+      context: .
+      dockerfile: MicroservicesHomework.Notifications/Dockerfile
+    networks:
+      - app-net
+  microserviceshomework.servicea:
+    image: ${DOCKER_REGISTRY-}microserviceshomeworkservicea
+    container_name: servicea
+    build:
+      context: .
+      dockerfile: MicroservicesHomework.ServiceA/Dockerfile
+    networks:
+      - app-net
+  microserviceshomework.serviceb:
+    image: ${DOCKER_REGISTRY-}microserviceshomeworkserviceb
+    container_name: serviceb
+    build:
+      context: .
+      dockerfile: MicroservicesHomework.ServiceB/Dockerfile
     networks:
       - app-net

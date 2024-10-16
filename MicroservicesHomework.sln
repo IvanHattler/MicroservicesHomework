@@ -10,9 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_Solution
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroservicesHomework.Notifications", "MicroservicesHomework.Notifications\MicroservicesHomework.Notifications.csproj", "{50943F5B-FDE9-4CC9-97B0-9B0217F4649A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroservicesHomework.Notifications", "MicroservicesHomework.Notifications\MicroservicesHomework.Notifications.csproj", "{50943F5B-FDE9-4CC9-97B0-9B0217F4649A}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9FC0F7CF-8D99-457E-89B3-5CF4998F174D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroservicesHomework.ServiceA", "MicroservicesHomework.ServiceA\MicroservicesHomework.ServiceA.csproj", "{F5FBAC94-3E08-4966-A4C7-00A3074A593B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroservicesHomework.ServiceB", "MicroservicesHomework.ServiceB\MicroservicesHomework.ServiceB.csproj", "{91732EE8-F141-43DE-ADE4-61503CBD00F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{9FC0F7CF-8D99-457E-89B3-5CF4998F174D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FC0F7CF-8D99-457E-89B3-5CF4998F174D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FC0F7CF-8D99-457E-89B3-5CF4998F174D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5FBAC94-3E08-4966-A4C7-00A3074A593B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5FBAC94-3E08-4966-A4C7-00A3074A593B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5FBAC94-3E08-4966-A4C7-00A3074A593B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5FBAC94-3E08-4966-A4C7-00A3074A593B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91732EE8-F141-43DE-ADE4-61503CBD00F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91732EE8-F141-43DE-ADE4-61503CBD00F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91732EE8-F141-43DE-ADE4-61503CBD00F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91732EE8-F141-43DE-ADE4-61503CBD00F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

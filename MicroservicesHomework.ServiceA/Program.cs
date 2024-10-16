@@ -1,7 +1,7 @@
 
-using MicroservicesHomework.Orchestrator.Contracts;
+using MicroservicesHomework.ServiceA.Services;
 
-namespace MicroservicesHomework.Notifications
+namespace MicroservicesHomework.ServiceA
 {
     public class Program
     {
@@ -16,6 +16,11 @@ namespace MicroservicesHomework.Notifications
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            var environmentVariables = Environment.GetEnvironmentVariables();
+            var orchestratorUrl = environmentVariables["orchestrator_url"] as string;
+
+            builder.Services.AddHostedService(x => new ProductHostedService(orchestratorUrl));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -27,11 +32,9 @@ namespace MicroservicesHomework.Notifications
 
             app.UseAuthorization();
 
-            app.MapPost("/send-attempt-to-order-notification", (AttemptToOrderNotificationDto dto) =>
+            app.MapPost("/post-queue", (List<long> queue) =>
             {
-                app.Logger.LogInformation("Была совершена попытка заказать продукт {productName} для клиента {clientId}",
-                    dto.ProductName,
-                    dto.ClientId);
+                UsersQueue.Instance = queue;
             });
 
             app.Run();
