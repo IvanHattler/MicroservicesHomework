@@ -1,0 +1,6 @@
+@MicroservicesHomework.ServiceA_HostAddress = http://localhost:5138
+
+GET {{MicroservicesHomework.ServiceA_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
