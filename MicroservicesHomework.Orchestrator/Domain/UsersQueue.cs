@@ -2,8 +2,8 @@
 {
     public class UsersQueue : Dictionary<string, List<long>>
     {
-        public const string ProductFromServiceAName = "Молоко";
-        public const string ProductFromServiceBName = "Стул";
+        public const string ProductFromServiceAName = "Стул";
+        public const string ProductFromServiceBName = "Молоко";
 
         public UsersQueue()
         {
@@ -11,13 +11,15 @@
             Add(ProductFromServiceBName, [5, 2, 3, 1]);
         }
 
-        public void MoveToEnd(string productName, long clientId)
+        public List<long> MoveToEnd(string productName, long clientId)
         {
             if (!TryGetValue(productName, out List<long> list))
-                return;
+                return null;
 
             list.Remove(clientId);
             list.Add(clientId);
+
+            return list;
         }
     }
 }

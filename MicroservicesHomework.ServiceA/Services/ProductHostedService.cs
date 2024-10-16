@@ -16,8 +16,9 @@ namespace MicroservicesHomework.ServiceA.Services
             {
                 if (UsersQueue.NextClientId != null)
                 {
-                    await SendSucessMessage(UsersQueue.NextClientId.Value, stoppingToken);
+                    var clientId = UsersQueue.NextClientId.Value;
                     UsersQueue.NextClientId = null;
+                    await SendSucessMessage(clientId, stoppingToken);
                 }
 
                 await Task.Delay(1000 + new Random().Next(5000), stoppingToken);
@@ -34,7 +35,7 @@ namespace MicroservicesHomework.ServiceA.Services
             var resp = await client.PostAsync("/move-to-end", JsonContent.Create(new
             {
                 UsersQueue.ProductName,
-                ClientId = UsersQueue.NextClientId,
+                ClientId = clientId,
             }), stoppingToken);
         }
     }
