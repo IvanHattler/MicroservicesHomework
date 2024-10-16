@@ -1,5 +1,4 @@
 ﻿
-
 namespace MicroservicesHomework.ServiceA.Services
 {
     public class ProductHostedService : BackgroundService
@@ -15,25 +14,28 @@ namespace MicroservicesHomework.ServiceA.Services
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                if (UsersQueue.Instance != null && UsersQueue.Instance.Count > 0)
+                if (UsersQueue.NextClientId != null)
                 {
-                    using var client = new HttpClient()
-                    {
-                        BaseAddress = new Uri(_orchestratorUrl),
-                    };
-
-                    var clientId = UsersQueue.Instance.First();
-                    UsersQueue.Instance.Remove(clientId);
-
-                    var resp = await client.PostAsync("/move-to-end", JsonContent.Create(new
-                        {
-                            UsersQueue.ProductName,
-                            ClientId = clientId,
-                        }), stoppingToken);
+                    await SendSucessMessage(UsersQueue.NextClientId.Value, stoppingToken);
+                    UsersQueue.NextClientId = null;
                 }
 
                 await Task.Delay(1000 + new Random().Next(5000), stoppingToken);
             }
+        }
+
+        private async Task SendSucessMessage(long clientId, CancellationToken stoppingToken)
+        {
+            using var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_orchestratorUrl),
+            };
+
+            var resp = await client.PostAsync("/move-to-end", JsonContent.Create(new
+            {
+                UsersQueue.ProductName,
+                ClientId = UsersQueue.NextClientId,
+            }), stoppingToken);
         }
     }
 }

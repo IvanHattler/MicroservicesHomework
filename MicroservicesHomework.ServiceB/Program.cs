@@ -1,5 +1,5 @@
-
-using MicroservicesHomework.ServiceA.Services;
+using MicroservicesHomework.ServiceB.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MicroservicesHomework.ServiceB
 {
@@ -32,12 +32,18 @@ namespace MicroservicesHomework.ServiceB
 
             app.UseAuthorization();
 
-            app.MapPost("/post-queue", (List<long> queue) =>
+            app.MapPost("/post-queue", (ClientIdDto dto) =>
             {
-                UsersQueue.Instance = queue;
+                app.Logger.LogInformation("Получен nextClientId = {nextClientId}", dto.NextClientId);
+                UsersQueue.NextClientId = dto.NextClientId;
             });
 
             app.Run();
+        }
+
+        private class ClientIdDto
+        {
+            public long NextClientId { get; set; }
         }
     }
 }

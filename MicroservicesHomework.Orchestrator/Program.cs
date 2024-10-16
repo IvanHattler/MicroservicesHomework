@@ -37,18 +37,19 @@ namespace MicroservicesHomework.Orchestrator
             app.MapGet("/get-queue", () => queue);
             app.MapPost("/move-to-end", async (MoveToEndDto dto) =>
             {
+                app.Logger.LogInformation("ѕолучено сообщение о попытке заказа ({productName}, {clientId})", dto.ProductName, dto.ClientId);
                 queue.MoveToEnd(dto.ProductName, dto.ClientId);
 
-                await SendQueueToServiceA(serviceAUrl, queue);
-                await SendQueueToServiceB(serviceBUrl, queue);
+                await SendNextClientToServiceA(serviceAUrl, queue);
+                await SendNextClientToServiceB(serviceBUrl, queue);
                 await SendNotification(notificationsUrl, dto);
 
                 return queue;
             });
 
-            await Task.Delay(10000);
-            await SendQueueToServiceA(serviceAUrl, queue);
-            await SendQueueToServiceB(serviceBUrl, queue);
+            await Task.Delay(5000);
+            await SendNextClientToServiceA(serviceAUrl, queue);
+            await SendNextClientToServiceB(serviceBUrl, queue);
 
             app.Run();
         }
@@ -65,8 +66,18 @@ namespace MicroservicesHomework.Orchestrator
                 JsonContent.Create(dto));
         }       
         
-        private static async Task SendQueueToServiceA(string serviceAUrl, UsersQueue queue)
+        private static async Task SendNextClientToServiceA(string serviceAUrl, UsersQueue queue)
         {
+            if (queue == null || queue[UsersQueue.ProductFromServiceAName].Count == 0)
+            {
+                return;
+            }
+
+            var dto = new ClientIdDto
+            {
+                NextClientId = queue[UsersQueue.ProductFromServiceAName].First(),
+            };
+
             using var client = new HttpClient()
             {
                 BaseAddress = new Uri(serviceAUrl),
@@ -74,11 +85,21 @@ namespace MicroservicesHomework.Orchestrator
 
             await client.PostAsync(
                 $"/post-queue",
-                JsonContent.Create(queue[UsersQueue.ProductFromServiceAName]));
-        } 
-        
-        private static async Task SendQueueToServiceB(string serviceBUrl, UsersQueue queue)
+                JsonContent.Create(dto));
+        }
+
+        private static async Task SendNextClientToServiceB(string serviceBUrl, UsersQueue queue)
         {
+            if (queue == null || queue[UsersQueue.ProductFromServiceBName].Count == 0)
+            {
+                return;
+            }
+
+            var dto = new ClientIdDto
+            {
+                NextClientId = queue[UsersQueue.ProductFromServiceBName].First(),
+            };
+
             using var client = new HttpClient()
             {
                 BaseAddress = new Uri(serviceBUrl),
@@ -86,7 +107,12 @@ namespace MicroservicesHomework.Orchestrator
 
             await client.PostAsync(
                 $"/post-queue",
-                JsonContent.Create(queue[UsersQueue.ProductFromServiceBName]));
+                JsonContent.Create(dto));
+        }
+
+        private class ClientIdDto
+        {
+            public long NextClientId { get; set; }
         }
     }
 }
