@@ -1,5 +1,7 @@
 
-namespace MicroservicesHomework.ServiceA
+using MicroservicesHomework.Orchestrator.Services;
+
+namespace MicroservicesHomework.Orchestrator
 {
     public class Program
     {
@@ -25,6 +27,7 @@ namespace MicroservicesHomework.ServiceA
 
             app.UseAuthorization();
 
+            var workflowService = new WorkflowService();
             app.MapGet("/get-queue", (HttpContext httpContext) =>
             {
                 
